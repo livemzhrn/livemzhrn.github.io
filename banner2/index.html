@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Banner</title>
+    <style>
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .banner img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .banner-button {
+            background-color: #f44336;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <div class="banner-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+        <span><strong>Уведомления в Телеграм, не пропускай перебитую ставку!</strong></span>
+    </div>
+    <button class="banner-button">Получать уведомления в Телеграм</button>
+    <button class="close-btn">✖</button>
+</div>
+
+</body>
+</html>
