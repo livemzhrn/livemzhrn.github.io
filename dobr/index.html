@@ -31,7 +31,7 @@
         yellow 180deg 270deg,
         blue 270deg 360deg
       );
-      transition: transform 2s ease-out;
+      transition: transform 5s linear;
     }
 
     #arrow {
@@ -51,6 +51,13 @@
       font-size: 24px;
       font-weight: bold;
     }
+
+    #startButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -61,11 +68,14 @@
     <div id="wheel"></div>
   </div>
 
+  <button id="startButton">START</button>
+
   <div id="result"></div>
 
   <script>
     const wheel = document.getElementById('wheel');
     const result = document.getElementById('result');
+    const startButton = document.getElementById('startButton');
     const sectors = [
       { color: 'green', text: 'Касдевим!' },
       { color: 'red', text: 'Надо подумать (я не знаю)' },
@@ -73,17 +83,30 @@
       { color: 'blue', text: 'Я за это получу по жопе, но ок' }
     ];
 
-    document.body.onclick = () => {
+    let isSpinning = false;
+
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+
       result.textContent = '';
+      startButton.style.display = 'none';
       const randomSector = Math.floor(Math.random() * sectors.length);
-      const rotationDegrees = 360 * 5 + (360 - randomSector * 90 - 45);
+      const currentRotation = parseFloat(wheel.dataset.rotation) || 0;
+      const rotationDegrees = currentRotation + 360 * 5 + (360 - randomSector * 90 - 45);
 
       wheel.style.transform = `rotate(${rotationDegrees}deg)`;
+      wheel.dataset.rotation = rotationDegrees;
 
       setTimeout(() => {
         result.textContent = sectors[randomSector].text;
-      }, 2000);
-    };
+        startButton.style.display = 'block';
+        isSpinning = false;
+      }, 5000);
+    }
+
+    wheel.addEventListener('click', spinWheel);
+    startButton.addEventListener('click', spinWheel);
   </script>
 </body>
 </html>
