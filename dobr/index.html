@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Колесо продакта</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
 
+    #wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    #wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        green 0deg 90deg,
+        red 90deg 180deg,
+        yellow 180deg 270deg,
+        blue 270deg 360deg
+      );
+      transition: transform 2s ease-out;
+    }
+
+    #arrow {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 20px solid red;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Колесо продакта</h1>
+
+  <div id="wheel-container">
+    <div id="arrow"></div>
+    <div id="wheel"></div>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const wheel = document.getElementById('wheel');
+    const result = document.getElementById('result');
+    const sectors = [
+      { color: 'green', text: 'Касдевим!' },
+      { color: 'red', text: 'Надо подумать (я не знаю)' },
+      { color: 'yellow', text: 'Сразу в прод!' },
+      { color: 'blue', text: 'Я за это получу по жопе, но ок' }
+    ];
+
+    document.body.onclick = () => {
+      result.textContent = '';
+      const randomSector = Math.floor(Math.random() * sectors.length);
+      const rotationDegrees = 360 * 5 + (360 - randomSector * 90 - 45);
+
+      wheel.style.transform = `rotate(${rotationDegrees}deg)`;
+
+      setTimeout(() => {
+        result.textContent = sectors[randomSector].text;
+      }, 2000);
+    };
+  </script>
+</body>
+</html>
