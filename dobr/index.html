@@ -31,7 +31,7 @@
         yellow 180deg 270deg,
         blue 270deg 360deg
       );
-      transition: transform 2s ease-out;
+      transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
     }
 
     #arrow {
@@ -82,7 +82,7 @@
 
       setTimeout(() => {
         result.textContent = sectors[randomSector].text;
-      }, 2000);
+      }, 5000);
     };
   </script>
 </body>
