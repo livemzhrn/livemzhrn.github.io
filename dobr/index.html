@@ -73,17 +73,20 @@
       { color: 'blue', text: 'Я за это получу по жопе, но ок' }
     ];
 
-    document.body.onclick = () => {
-      result.textContent = '';
-      const randomSector = Math.floor(Math.random() * sectors.length);
-      const rotationDegrees = 360 * 5 + (360 - randomSector * 90 - 45);
+      let totalRotation = 0;
 
-      wheel.style.transform = `rotate(${rotationDegrees}deg)`;
+      document.body.onclick = () => {
+        result.textContent = '';
+        const randomSector = Math.floor(Math.random() * sectors.length);
+        const offset = 360 - randomSector * 90 - 45;
+        totalRotation += 360 * 5 + offset;
 
-      setTimeout(() => {
-        result.textContent = sectors[randomSector].text;
-      }, 5000);
-    };
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+        setTimeout(() => {
+          result.textContent = sectors[randomSector].text;
+        }, 5000);
+      };
   </script>
 </body>
 </html>
