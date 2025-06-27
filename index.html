@@ -13,6 +13,14 @@
     body {
       text-align: center;
       font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -92,6 +100,29 @@
     }
 
     const game = setInterval(drawGame, 150);
+  </script>
+
+  <script>
+    const emojis = [
+      "😀","😁","😂","🤣","😃","😄","😅","😆",
+      "😉","😊","😍","😎","🤖","🐍","🚀","🌟","🎉"
+    ];
+
+    function createEmoji() {
+      const el = document.createElement("div");
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.position = "fixed";
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.top = "-2em";
+      el.style.fontSize = "2rem";
+      const duration = 3 + Math.random() * 3;
+      el.style.animation = `fall ${duration}s linear`;
+      el.style.pointerEvents = "none";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), duration * 1000);
+    }
+
+    setInterval(createEmoji, 500);
   </script>
 </body>
 </html>
