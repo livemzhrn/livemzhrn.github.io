@@ -97,7 +97,7 @@
         wheel.style.transform = `rotate(${current}deg)`;
         void wheel.offsetWidth;
 
-        totalRotation = current + 360 * 5 + offset;
+        totalRotation += 360 * 5 + offset - current;
         wheel.style.transition = 'transform 5s linear';
         wheel.style.transform = `rotate(${totalRotation}deg)`;
 
