@@ -73,17 +73,38 @@
       { color: 'blue', text: 'Я за это получу по жопе, но ок' }
     ];
 
-    document.body.onclick = () => {
-      result.textContent = '';
-      const randomSector = Math.floor(Math.random() * sectors.length);
-      const rotationDegrees = 360 * 5 + (360 - randomSector * 90 - 45);
+      let totalRotation = 0;
 
-      wheel.style.transform = `rotate(${rotationDegrees}deg)`;
+      function getCurrentRotation(el) {
+        const st = window.getComputedStyle(el);
+        const tr = st.getPropertyValue('transform');
+        if (tr === 'none') return 0;
+        const values = tr.match(/matrix\(([^)]+)\)/)[1].split(', ');
+        const a = parseFloat(values[0]);
+        const b = parseFloat(values[1]);
+        let angle = Math.atan2(b, a) * (180 / Math.PI);
+        if (angle < 0) angle += 360;
+        return angle;
+      }
 
-      setTimeout(() => {
-        result.textContent = sectors[randomSector].text;
-      }, 5000);
-    };
+      document.body.onclick = () => {
+        result.textContent = '';
+        const randomSector = Math.floor(Math.random() * sectors.length);
+        const offset = 360 - randomSector * 90 - 45;
+        const current = getCurrentRotation(wheel);
+
+        wheel.style.transition = 'none';
+        wheel.style.transform = `rotate(${current}deg)`;
+        void wheel.offsetWidth;
+
+        totalRotation = current + 360 * 5 + offset;
+        wheel.style.transition = 'transform 5s linear';
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+        setTimeout(() => {
+          result.textContent = sectors[randomSector].text;
+        }, 5000);
+      };
   </script>
 </body>
 </html>
