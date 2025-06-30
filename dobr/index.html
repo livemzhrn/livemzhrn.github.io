@@ -120,6 +120,7 @@
       ];
 
       let totalRotation = 0;
+      let countdownInterval;
 
       function getCurrentRotation(el) {
         const st = window.getComputedStyle(el);
@@ -134,6 +135,8 @@
       }
 
       document.body.onclick = () => {
+        clearInterval(countdownInterval);
+        result.classList.remove('show');
         result.textContent = "";
         const randomSector = Math.floor(Math.random() * sectors.length);
         const offset = 360 - randomSector * 90 - 45;
@@ -147,7 +150,18 @@
         wheel.style.transition = "transform 5s linear";
         wheel.style.transform = `rotate(${totalRotation}deg)`;
 
+        let remaining = 5;
+        result.textContent = remaining;
+        result.classList.add('show');
+        countdownInterval = setInterval(() => {
+          remaining--;
+          if (remaining > 0) {
+            result.textContent = remaining;
+          }
+        }, 1000);
+
         setTimeout(() => {
+          clearInterval(countdownInterval);
           result.classList.remove('show');
           void result.offsetWidth;
           result.textContent = sectors[randomSector].text;
